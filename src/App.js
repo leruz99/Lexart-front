@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginForm from './components/LoginForm';
+import PrivateRoute from './components/PrivateRoute';
+import Product from './components/Product';
+import Header from './components/Header';
+import Home from './components/Home';
+import NotFound from './components/NotFound';
+import SaveProductForm from './components/SaveProductForm';
+import PublicRoute from './components/PublicRoute';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    <Router>
+      <Header />
+      <Routes>
+        <Route path='/' element={<PublicRoute><Home/></PublicRoute>}/>
+        <Route path="/login" element={<PublicRoute><LoginForm /></PublicRoute>} />
+        <Route path="/productos" element={<PrivateRoute component={Product}/>} />
+        <Route path="/add-product" element={<PrivateRoute component={SaveProductForm}/>} />
+        <Route path='*' element={<NotFound/>} />
+      </Routes>
+    </Router>
   );
 }
 
